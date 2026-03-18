@@ -1,0 +1,208 @@
+"use client";
+
+import { useState } from "react";
+import { Send, CheckCircle, AlertCircle, Mail } from "lucide-react";
+import { SITE } from "@/lib/constants";
+
+type FormStatus = "idle" | "sending" | "sent" | "error";
+
+export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<FormStatus>("idle");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+
+    try {
+      const res = await fetch("https://forms.caltechweb.com/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          site: SITE.domain,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          source: "contact-page",
+        }),
+      });
+
+      if (res.ok) {
+        setStatus("sent");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="bg-dark py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 text-center">
+          <span className="text-xs font-bold uppercase tracking-widest text-primary-light mb-3 block">
+            Get in Touch
+          </span>
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6">
+            Contact Us
+          </h1>
+          <div className="h-1 w-16 rounded-full bg-primary mx-auto mb-5" />
+          <p className="mx-auto max-w-xl text-lg text-white/60 leading-relaxed">
+            Have a question or want to get involved? We would love to hear from
+            you.
+          </p>
+        </div>
+      </section>
+
+      {/* Contact Form */}
+      <section className="py-20 md:py-28 bg-cream">
+        <div className="mx-auto max-w-2xl px-4 sm:px-6">
+          <div className="rounded-2xl bg-white p-8 md:p-10 shadow-sm border border-gray-100">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <Mail className="h-5 w-5" />
+              </div>
+              <h2 className="text-xl font-bold text-heading">
+                Send Us a Message
+              </h2>
+            </div>
+
+            {status === "sent" ? (
+              <div className="flex flex-col items-center py-12 text-center">
+                <CheckCircle className="h-14 w-14 text-green-500 mb-4" />
+                <h3 className="text-xl font-bold text-heading mb-2">
+                  Message Sent!
+                </h3>
+                <p className="text-text">
+                  Thank you for reaching out. We will get back to you soon.
+                </p>
+                <button
+                  type="button"
+                  className="mt-6 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+                  onClick={() => setStatus("idle")}
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-semibold text-heading mb-1.5"
+                  >
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full rounded-xl border border-gray-200 bg-cream/50 px-4 py-3 text-sm text-heading placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                    placeholder="Your name"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-semibold text-heading mb-1.5"
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full rounded-xl border border-gray-200 bg-cream/50 px-4 py-3 text-sm text-heading placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                    placeholder="you@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-semibold text-heading mb-1.5"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={5}
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full rounded-xl border border-gray-200 bg-cream/50 px-4 py-3 text-sm text-heading placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none resize-none"
+                    placeholder="How can we help?"
+                  />
+                </div>
+
+                {status === "error" && (
+                  <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
+                    Something went wrong. Please try again.
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-white hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-md hover:shadow-lg"
+                >
+                  {status === "sending" ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-4 w-4" />
+                      Send Message
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </div>
+
+          {/* Social */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-text mb-3">
+              You can also find us on social media
+            </p>
+            <a
+              href={SITE.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+            >
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+              Follow us on Facebook
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

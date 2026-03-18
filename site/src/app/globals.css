@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #B71C1C;
+  --color-primary-dark: #8B0000;
+  --color-primary-light: #D32F2F;
+  --color-accent: #1A237E;
+  --color-accent-light: #303F9F;
+  --color-dark: #1A1A2E;
+  --color-dark-light: #2D2D44;
+  --color-cream: #FAFAF8;
+  --color-warm-gray: #F0EEEA;
+  --color-text: #555555;
+  --color-heading: #1A1A2E;
+  --color-gold: #C59A3A;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus ring utility */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Smooth transitions for interactive elements */
+a, button {
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Icon hover animation utility */
+.icon-hover {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.icon-hover:hover {
+  transform: scale(1.1) translateY(-1px);
+}
