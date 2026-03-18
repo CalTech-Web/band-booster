@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, Users, Music, Trophy, ArrowRight } from "lucide-react";
@@ -5,6 +6,15 @@ import { SITE } from "@/lib/constants";
 import FadeIn from "@/components/FadeIn";
 import HeroDecor from "@/components/HeroDecor";
 import WaveDivider from "@/components/WaveDivider";
+
+export const metadata: Metadata = {
+  description: SITE.description,
+  openGraph: {
+    title: "Groveport Madison Band Boosters | Supporting GM Bands",
+    description: SITE.description,
+    url: SITE.url,
+  },
+};
 
 const marqueeItems = [
   "Instruments",
