@@ -12,6 +12,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import FadeIn from "@/components/FadeIn";
+import HeroDecor from "@/components/HeroDecor";
+import WaveDivider from "@/components/WaveDivider";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -41,8 +44,9 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-dark py-20 md:py-28">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 text-center">
+      <section className="relative bg-dark py-20 md:py-28 overflow-hidden">
+        <HeroDecor />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 text-center">
           <span className="text-xs font-bold uppercase tracking-widest text-primary-light mb-3 block">
             Our Story
           </span>
@@ -57,41 +61,47 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <WaveDivider fillColor="#FAFAF8" />
+
       {/* Mission */}
-      <section className="py-20 md:py-28 bg-cream">
+      <section className="py-20 md:py-28 bg-mesh-cream">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <div className="rounded-2xl bg-white p-8 md:p-12 shadow-sm border border-gray-100">
-            <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">
-              Our Mission
-            </span>
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-heading mb-6">
-              Supporting Band Students
-            </h2>
-            <p className="text-text text-lg leading-relaxed mb-4">
-              The Groveport Madison Band Boosters is a{" "}
-              <strong className="text-heading">501(c)(3) nonprofit organization</strong>,
-              established to provide both moral and financial support to the
-              students who participate in the band programs.
-            </p>
-            <p className="text-text leading-relaxed mb-4">
-              We welcome all parents and guardians of band students. Our members
-              conduct monthly board meetings and general meetings as needed, with
-              governing documents (Constitution and By-laws) available upon
-              request.
-            </p>
-            <p className="text-text leading-relaxed">
-              We provide encouragement and support at concerts, competitions, and
-              other performances by the bands representing Groveport Madison
-              Schools.
-            </p>
-          </div>
+          <FadeIn>
+            <div className="rounded-2xl bg-white p-8 md:p-12 shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+              <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">
+                Our Mission
+              </span>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-heading mb-6">
+                Supporting Band Students
+              </h2>
+              <p className="text-text text-lg leading-relaxed mb-4">
+                The Groveport Madison Band Boosters is a{" "}
+                <strong className="text-heading">501(c)(3) nonprofit organization</strong>,
+                established to provide both moral and financial support to the
+                students who participate in the band programs.
+              </p>
+              <p className="text-text leading-relaxed mb-4">
+                We welcome all parents and guardians of band students. Our members
+                conduct monthly board meetings and general meetings as needed, with
+                governing documents (Constitution and By-laws) available upon
+                request.
+              </p>
+              <p className="text-text leading-relaxed">
+                We provide encouragement and support at concerts, competitions, and
+                other performances by the bands representing Groveport Madison
+                Schools.
+              </p>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
+      <WaveDivider fillColor="white" />
+
       {/* What We Fund */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-20 md:py-28 bg-mesh-white bg-dot-grid">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="text-center mb-14">
+          <FadeIn className="text-center mb-14">
             <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">
               Fundraising
             </span>
@@ -104,28 +114,31 @@ export default function AboutPage() {
               support the following areas, along with other board-approved
               activities.
             </p>
-          </div>
+          </FadeIn>
 
           <div className="flex flex-wrap justify-center gap-3">
-            {supportAreas.map((area) => {
+            {supportAreas.map((area, index) => {
               const Icon = area.icon;
               return (
-                <span
-                  key={area.label}
-                  className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 ${area.pastel}`}
-                >
-                  <Icon className="h-4 w-4 icon-hover" />
-                  {area.label}
-                </span>
+                <FadeIn key={area.label} delay={Math.min(index + 1, 9)} as="span" className="inline-flex">
+                  <span
+                    className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.03] ${area.pastel}`}
+                  >
+                    <Icon className="h-4 w-4 icon-hover" />
+                    {area.label}
+                  </span>
+                </FadeIn>
               );
             })}
           </div>
         </div>
       </section>
 
+      <WaveDivider fillColor="#FAFAF8" />
+
       {/* Get Involved */}
-      <section className="py-20 md:py-28 bg-cream">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
+      <section className="py-20 md:py-28 bg-mesh-cream">
+        <FadeIn className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">
             Get Involved
           </span>
@@ -142,7 +155,7 @@ export default function AboutPage() {
               href={SITE.donateUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white hover:bg-primary-dark hover:scale-105 transition-all duration-300 shadow-lg"
+              className="btn-shimmer inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white hover:bg-primary-dark hover:scale-105 transition-all duration-300 shadow-lg"
             >
               <Heart className="h-4 w-4" />
               Donate Now
@@ -155,7 +168,7 @@ export default function AboutPage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </div>
+        </FadeIn>
       </section>
     </>
   );

@@ -49,11 +49,18 @@ export default function Navbar() {
       <nav
         className={`transition-all duration-300 ${
           scrolled
-            ? "bg-white shadow-lg border-b border-gray-100"
+            ? "bg-white shadow-lg"
             : "bg-white/95 backdrop-blur-sm"
         }`}
         aria-label="Main navigation"
       >
+        {/* Gradient accent border (visible on scroll) */}
+        <div
+          className={`absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-gold to-primary transition-opacity duration-300 ${
+            scrolled ? "opacity-100" : "opacity-0"
+          }`}
+        />
+
         <div className="mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-6 py-3">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0" onClick={closeMobile}>
@@ -104,7 +111,7 @@ export default function Navbar() {
               href={SITE.donateUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-white hover:bg-primary-dark hover:scale-105 hover:shadow-lg transition-all duration-300 shadow-md"
+              className="btn-shimmer inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-white hover:bg-primary-dark hover:scale-105 hover:shadow-lg transition-all duration-300 shadow-md"
             >
               <Heart className="h-4 w-4 icon-hover" />
               Donate
@@ -125,7 +132,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="border-t border-gray-100 bg-white md:hidden">
+          <div className="border-t border-gray-100 bg-white md:hidden animate-slide-down">
             <div className="space-y-1 px-4 pb-6 pt-4">
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href;
@@ -149,7 +156,7 @@ export default function Navbar() {
                   href={SITE.donateUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all"
+                  className="btn-shimmer flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all"
                   onClick={closeMobile}
                 >
                   <Heart className="h-4 w-4" />

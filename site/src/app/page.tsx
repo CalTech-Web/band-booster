@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, Users, Music, Trophy, ArrowRight } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import FadeIn from "@/components/FadeIn";
+import HeroDecor from "@/components/HeroDecor";
+import WaveDivider from "@/components/WaveDivider";
 
 const highlights = [
   {
@@ -50,6 +53,7 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/80 to-dark" />
         </div>
+        <HeroDecor />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-24 md:py-36 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 mb-6">
             <span className="text-xs font-bold uppercase tracking-wider text-primary-light">
@@ -71,7 +75,7 @@ export default function HomePage() {
               href={SITE.donateUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white hover:bg-primary-dark hover:scale-105 hover:shadow-xl shadow-lg transition-all duration-300"
+              className="btn-shimmer inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white hover:bg-primary-dark hover:scale-105 hover:shadow-xl shadow-lg transition-all duration-300"
             >
               <Heart className="h-4 w-4" />
               Donate Now
@@ -87,10 +91,12 @@ export default function HomePage() {
         </div>
       </section>
 
+      <WaveDivider fillColor="#FAFAF8" />
+
       {/* What We Support */}
-      <section className="py-20 md:py-28 bg-cream">
+      <section className="py-20 md:py-28 bg-mesh-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="text-center mb-14">
+          <FadeIn className="text-center mb-14">
             <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">
               How We Help
             </span>
@@ -102,39 +108,40 @@ export default function HomePage() {
               We organize various fundraising efforts annually to ensure every
               band student has the resources they need to succeed.
             </p>
-          </div>
+          </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {highlights.map((item) => {
+            {highlights.map((item, index) => {
               const Icon = item.icon;
               return (
-                <div
-                  key={item.title}
-                  className="group relative rounded-2xl bg-white p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary/20 hover:-translate-y-1"
-                >
-                  <div
-                    className={`inline-flex items-center justify-center h-12 w-12 rounded-xl ${item.color} mb-4 group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <Icon className="h-6 w-6" />
+                <FadeIn key={item.title} delay={index + 1}>
+                  <div className="group relative rounded-2xl bg-white p-6 shadow-sm hover:shadow-xl glass-hover border border-gray-100 hover:border-primary/20 hover:-translate-y-1 transition-all duration-300">
+                    <div
+                      className={`inline-flex items-center justify-center h-12 w-12 rounded-xl ${item.color} mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}
+                    >
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-lg font-bold text-heading mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-text leading-relaxed">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold text-heading mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-text leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+                </FadeIn>
               );
             })}
           </div>
         </div>
       </section>
 
+      <WaveDivider fillColor="white" />
+
       {/* About Preview */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-20 md:py-28 bg-mesh-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <FadeIn>
               <span className="text-xs font-bold uppercase tracking-widest text-primary mb-3 block">
                 About Us
               </span>
@@ -158,28 +165,33 @@ export default function HomePage() {
                 Read more about us
                 <ArrowRight className="h-4 w-4" />
               </Link>
-            </div>
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                <Image
-                  src="/images/hero-banner.png"
-                  alt="Groveport Madison Band Boosters"
-                  width={600}
-                  height={200}
-                  className="w-full h-auto"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
+            </FadeIn>
+            <FadeIn delay={2}>
+              <div className="relative">
+                <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/hero-banner.png"
+                    alt="Groveport Madison Band Boosters"
+                    width={600}
+                    height={200}
+                    className="w-full h-auto"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="absolute -bottom-4 -right-4 h-24 w-24 rounded-2xl bg-primary/10 -z-10 animate-pulse-glow" />
+                <div className="absolute -top-4 -left-4 h-16 w-16 rounded-2xl bg-accent/10 -z-10 animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
               </div>
-              <div className="absolute -bottom-4 -right-4 h-24 w-24 rounded-2xl bg-primary/10 -z-10" />
-              <div className="absolute -top-4 -left-4 h-16 w-16 rounded-2xl bg-accent/10 -z-10" />
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
 
+      <WaveDivider fillColor="#B71C1C" />
+
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-primary">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
+      <section className="relative py-16 md:py-20 bg-primary overflow-hidden">
+        <HeroDecor />
+        <FadeIn className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
             Help Us Support the Band
           </h2>
@@ -193,7 +205,7 @@ export default function HomePage() {
               href={SITE.donateUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-primary hover:bg-cream hover:scale-105 transition-all duration-300 shadow-lg"
+              className="btn-shimmer inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-primary hover:bg-cream hover:scale-105 transition-all duration-300 shadow-lg"
             >
               <Heart className="h-4 w-4" />
               Donate Now
@@ -205,7 +217,7 @@ export default function HomePage() {
               Get in Touch
             </Link>
           </div>
-        </div>
+        </FadeIn>
       </section>
     </>
   );

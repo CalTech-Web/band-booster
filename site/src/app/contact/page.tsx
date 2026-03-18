@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { Send, CheckCircle, AlertCircle, Mail } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import FadeIn from "@/components/FadeIn";
+import HeroDecor from "@/components/HeroDecor";
+import WaveDivider from "@/components/WaveDivider";
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
 
@@ -48,11 +51,15 @@ export default function ContactPage() {
     }
   };
 
+  const inputClass =
+    "w-full rounded-xl border border-gray-200 bg-cream/50 px-4 py-3 text-sm text-heading placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:shadow-[0_0_0_3px_rgba(183,28,28,0.08),0_2px_8px_rgba(183,28,28,0.04)] focus:bg-white transition-all duration-300 outline-none";
+
   return (
     <>
       {/* Hero */}
-      <section className="bg-dark py-20 md:py-28">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 text-center">
+      <section className="relative bg-dark py-20 md:py-28 overflow-hidden">
+        <HeroDecor />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 text-center">
           <span className="text-xs font-bold uppercase tracking-widest text-primary-light mb-3 block">
             Get in Touch
           </span>
@@ -67,140 +74,146 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <WaveDivider fillColor="#FAFAF8" />
+
       {/* Contact Form */}
-      <section className="py-20 md:py-28 bg-cream">
+      <section className="py-20 md:py-28 bg-mesh-cream">
         <div className="mx-auto max-w-2xl px-4 sm:px-6">
-          <div className="rounded-2xl bg-white p-8 md:p-10 shadow-sm border border-gray-100">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <Mail className="h-5 w-5" />
+          <FadeIn>
+            <div className="rounded-2xl bg-white p-8 md:p-10 shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Mail className="h-5 w-5 icon-hover" />
+                </div>
+                <h2 className="text-xl font-bold text-heading">
+                  Send Us a Message
+                </h2>
               </div>
-              <h2 className="text-xl font-bold text-heading">
-                Send Us a Message
-              </h2>
-            </div>
 
-            {status === "sent" ? (
-              <div className="flex flex-col items-center py-12 text-center">
-                <CheckCircle className="h-14 w-14 text-green-500 mb-4" />
-                <h3 className="text-xl font-bold text-heading mb-2">
-                  Message Sent!
-                </h3>
-                <p className="text-text">
-                  Thank you for reaching out. We will get back to you soon.
-                </p>
-                <button
-                  type="button"
-                  className="mt-6 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
-                  onClick={() => setStatus("idle")}
-                >
-                  Send another message
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-semibold text-heading mb-1.5"
+              {status === "sent" ? (
+                <div className="flex flex-col items-center py-12 text-center">
+                  <CheckCircle className="h-14 w-14 text-green-500 mb-4" />
+                  <h3 className="text-xl font-bold text-heading mb-2">
+                    Message Sent!
+                  </h3>
+                  <p className="text-text">
+                    Thank you for reaching out. We will get back to you soon.
+                  </p>
+                  <button
+                    type="button"
+                    className="mt-6 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+                    onClick={() => setStatus("idle")}
                   >
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full rounded-xl border border-gray-200 bg-cream/50 px-4 py-3 text-sm text-heading placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
-                    placeholder="Your name"
-                  />
+                    Send another message
+                  </button>
                 </div>
-
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-semibold text-heading mb-1.5"
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full rounded-xl border border-gray-200 bg-cream/50 px-4 py-3 text-sm text-heading placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
-                    placeholder="you@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-semibold text-heading mb-1.5"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-full rounded-xl border border-gray-200 bg-cream/50 px-4 py-3 text-sm text-heading placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none resize-none"
-                    placeholder="How can we help?"
-                  />
-                </div>
-
-                {status === "error" && (
-                  <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
-                    <AlertCircle className="h-4 w-4 shrink-0" />
-                    Something went wrong. Please try again.
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-semibold text-heading mb-1.5"
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className={inputClass}
+                      placeholder="Your name"
+                    />
                   </div>
-                )}
 
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-white hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-md hover:shadow-lg"
-                >
-                  {status === "sending" ? (
-                    <>
-                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-4 w-4" />
-                      Send Message
-                    </>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-semibold text-heading mb-1.5"
+                    >
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={inputClass}
+                      placeholder="you@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-semibold text-heading mb-1.5"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className={`${inputClass} resize-none`}
+                      placeholder="How can we help?"
+                    />
+                  </div>
+
+                  {status === "error" && (
+                    <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+                      <AlertCircle className="h-4 w-4 shrink-0" />
+                      Something went wrong. Please try again.
+                    </div>
                   )}
-                </button>
-              </form>
-            )}
-          </div>
+
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="btn-shimmer inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-white hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-md hover:shadow-lg"
+                  >
+                    {status === "sending" ? (
+                      <>
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" />
+                        Send Message
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
+          </FadeIn>
 
           {/* Social */}
-          <div className="mt-8 text-center">
-            <p className="text-sm text-text mb-3">
-              You can also find us on social media
-            </p>
-            <a
-              href={SITE.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
-            >
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-              Follow us on Facebook
-            </a>
-          </div>
+          <FadeIn delay={2}>
+            <div className="mt-8 text-center">
+              <p className="text-sm text-text mb-3">
+                You can also find us on social media
+              </p>
+              <a
+                href={SITE.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+              >
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+                Follow us on Facebook
+              </a>
+            </div>
+          </FadeIn>
         </div>
       </section>
     </>

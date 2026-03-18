@@ -4,7 +4,10 @@ import { SITE } from "@/lib/constants";
 
 export default function Footer() {
   return (
-    <footer className="bg-dark text-white/70">
+    <footer className="relative bg-dark text-white/70">
+      {/* Gradient top accent line */}
+      <div className="h-[2px] bg-gradient-to-r from-primary via-gold to-accent via-30% to-70%" />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 md:py-16">
         {/* Top section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
@@ -37,7 +40,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/60 hover:bg-primary hover:text-white transition-all duration-200"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/60 hover:bg-primary hover:text-white hover:shadow-[0_0_12px_rgba(183,28,28,0.4)] transition-all duration-300"
               >
                 <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -55,7 +58,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/"
-                  className="text-sm text-white/60 hover:text-white transition-colors"
+                  className="inline-flex text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-200"
                 >
                   Home
                 </Link>
@@ -63,7 +66,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/about"
-                  className="text-sm text-white/60 hover:text-white transition-colors"
+                  className="inline-flex text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-200"
                 >
                   About Us
                 </Link>
@@ -71,7 +74,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="text-sm text-white/60 hover:text-white transition-colors"
+                  className="inline-flex text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-200"
                 >
                   Contact
                 </Link>
@@ -81,7 +84,7 @@ export default function Footer() {
                   href={SITE.donateUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-white/60 hover:text-white transition-colors"
+                  className="inline-flex text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-200"
                 >
                   Donate
                 </a>
@@ -102,7 +105,7 @@ export default function Footer() {
               href={SITE.donateUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-white hover:bg-primary-dark transition-colors"
+              className="btn-shimmer inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-white hover:bg-primary-dark hover:shadow-lg transition-all duration-300"
             >
               Make a Donation
             </a>
