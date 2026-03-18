@@ -98,6 +98,12 @@ a, button {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee { animation: marquee 25s linear infinite; }
 .animate-float { animation: float 4s ease-in-out infinite; }
 .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
@@ -182,6 +188,9 @@ a, button {
   .btn-shimmer::after {
     animation: none;
     display: none;
+  }
+  .animate-marquee {
+    animation: none;
   }
   .animate-slide-down {
     animation: none;
