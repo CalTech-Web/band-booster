@@ -53,8 +53,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/images/hero-banner.png",
-        width: 1200,
-        height: 400,
+        width: 1875,
+        height: 625,
         alt: "Groveport Madison Band Boosters",
       },
     ],

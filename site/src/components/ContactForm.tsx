@@ -13,6 +13,7 @@ export default function ContactForm() {
     email: "",
     message: "",
   });
+  const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
 
   const handleChange = (
@@ -23,6 +24,7 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) return;
     setStatus("sending");
 
     try {
@@ -157,6 +159,16 @@ export default function ContactForm() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="absolute opacity-0 -z-10 pointer-events-none" aria-hidden="true">
+                    <input
+                      type="text"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
                   <div>
                     <label
                       htmlFor="name"

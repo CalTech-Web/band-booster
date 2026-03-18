@@ -8,7 +8,6 @@ export const SITE = {
   tagline: "Supporting the Groveport Madison Bands",
   facebook: "https://www.facebook.com/gminstrumentalmusic",
   donateUrl: "https://square.link/u/jjFE8mif?src=sheet",
-  email: "FORM_RECEIVER_EMAIL",
   copyright: `© ${new Date().getFullYear()} Groveport Madison Band Boosters. All Rights Reserved.`,
 } as const;
 
