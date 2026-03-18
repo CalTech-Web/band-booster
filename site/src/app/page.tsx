@@ -13,6 +13,7 @@ const highlights = [
     description:
       "Funding instruments, sheet music, and equipment so every student can participate.",
     color: "bg-red-50 text-primary",
+    num: "01",
   },
   {
     icon: Trophy,
@@ -20,6 +21,7 @@ const highlights = [
     description:
       "Supporting travel, registration, and logistics for band competitions and performances.",
     color: "bg-blue-50 text-accent",
+    num: "02",
   },
   {
     icon: Users,
@@ -27,6 +29,7 @@ const highlights = [
     description:
       "Recognizing outstanding students through scholarships and the Annual Band Awards Night.",
     color: "bg-amber-50 text-gold",
+    num: "03",
   },
   {
     icon: Heart,
@@ -34,6 +37,7 @@ const highlights = [
     description:
       "Providing uniforms, additional support staff, transportation, and insurance.",
     color: "bg-green-50 text-emerald-700",
+    num: "04",
   },
 ];
 
@@ -110,23 +114,51 @@ export default function HomePage() {
             </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {highlights.map((item, index) => {
               const Icon = item.icon;
+              const isHero = index === 0;
+              const isWide = index === 3;
+
               return (
-                <FadeIn key={item.title} delay={index + 1}>
-                  <div className="group relative rounded-2xl bg-white p-6 shadow-sm hover:shadow-xl glass-hover border border-gray-100 hover:border-primary/20 hover:-translate-y-1 transition-all duration-300">
+                <FadeIn
+                  key={item.title}
+                  delay={index + 1}
+                  className={`${isHero ? "sm:row-span-2" : ""} ${isWide ? "sm:col-span-2" : ""}`}
+                >
+                  <div
+                    className={`group relative rounded-2xl bg-white shadow-sm hover:shadow-xl glass-hover border border-gray-100 hover:border-primary/20 hover:-translate-y-1 transition-all duration-300 h-full ${
+                      isHero
+                        ? "border-l-4 border-l-primary p-8 flex flex-col justify-center"
+                        : isWide
+                          ? "p-6 flex flex-col sm:flex-row sm:items-center gap-5 bg-dot-grid"
+                          : "p-6"
+                    }`}
+                  >
+                    <span className="absolute top-4 right-5 font-serif text-4xl font-bold text-gray-100 select-none pointer-events-none">
+                      {item.num}
+                    </span>
+
                     <div
-                      className={`inline-flex items-center justify-center h-12 w-12 rounded-xl ${item.color} mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}
+                      className={`inline-flex items-center justify-center rounded-xl ${item.color} group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shrink-0 ${
+                        isHero ? "h-14 w-14 mb-5" : "h-12 w-12 mb-4 sm:mb-0"
+                      }`}
                     >
-                      <Icon className="h-6 w-6" />
+                      <Icon className={isHero ? "h-7 w-7" : "h-6 w-6"} />
                     </div>
-                    <h3 className="text-lg font-bold text-heading mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-text leading-relaxed">
-                      {item.description}
-                    </p>
+
+                    <div>
+                      <h3
+                        className={`font-bold text-heading mb-2 ${
+                          isHero ? "text-xl md:text-2xl" : "text-lg"
+                        }`}
+                      >
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-text leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
                 </FadeIn>
               );
