@@ -21,6 +21,7 @@ const siteUrl = SITE.url;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  verification: { google: "LusECXWOEFOpUUlx8jGXswetRBHqh9kqADs9tC_lKDY" },
   title: {
     default: "Groveport Madison Band Boosters | Supporting GM Bands",
     template: "%s | GM Band Boosters",
